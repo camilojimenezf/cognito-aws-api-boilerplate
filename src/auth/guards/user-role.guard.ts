@@ -9,9 +9,11 @@ import { Reflector } from '@nestjs/core';
 
 import { META_ROLES } from '../decorators/role-protected.decorator';
 import { UserService } from '../../user/user.service';
+import { User } from '../../user/entities/user.entity';
 
 interface CognitoRequest extends Request {
   cognito_jwt_payload: { email: string };
+  user: User;
 }
 
 @Injectable()
@@ -38,6 +40,8 @@ export class UserRoleGuard implements CanActivate {
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
+
+    req.user = user;
 
     const roles = user.roles.map((role) => role.name);
 

@@ -4,6 +4,8 @@ import { Authentication, CognitoUser, User } from '@nestjs-cognito/auth';
 import { AuthService } from './auth.service';
 import { Auth } from './decorators/auth.decorator';
 import { RolesEnum } from './enums/roles.enum';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User as UserEntity } from '../user/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -17,7 +19,10 @@ export class AuthController {
 
   @Get('profile2')
   @Auth(RolesEnum.admin, RolesEnum.superUser)
-  getProfile2(@CognitoUser() user: User) {
-    return { email: user.email };
+  getProfile2(
+    @CognitoUser() user: User,
+    @CurrentUser() currentUser: UserEntity,
+  ) {
+    return { ...currentUser };
   }
 }
