@@ -39,9 +39,9 @@ export class UserRoleGuard implements CanActivate {
       throw new UnauthorizedException('User not found');
     }
 
-    console.log(user);
+    const roles = user.roles.map((role) => role.name);
 
-    if (!user.roles || user.roles.length === 0) {
+    if (!roles || roles.length === 0) {
       throw new ForbiddenException(
         `User ${user.email} does not have any roles`,
       );
