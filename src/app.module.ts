@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { env } from './config/env';
 import { SeedModule } from './seed/seed.module';
+import { InitializationModule } from './initialization/initialization.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { SeedModule } from './seed/seed.module';
     AuthModule,
     UserModule,
     SeedModule,
+    InitializationModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],
