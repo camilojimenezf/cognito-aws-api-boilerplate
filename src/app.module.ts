@@ -17,6 +17,7 @@ import { SeedModule } from './seed/seed.module';
       password: env.DB_PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
+      ssl: env.DB_SSL ? { rejectUnauthorized: false } : false,
     }),
     AuthModule,
     UserModule,

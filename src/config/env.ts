@@ -3,9 +3,9 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   NODE_ENV: z
-    .enum(['development', 'production', 'test'])
+    .enum(['development', 'production', 'staging', 'test'])
     .default('development'),
-  PORT: z.number({ coerce: true }).default(3001),
+  PORT: z.number({ coerce: true }).default(3000),
   COGNITO_USER_POOL_ID: z.string(),
   COGNITO_CLIENT_ID: z.string(),
   DB_HOST: z.string(),
@@ -13,6 +13,7 @@ const envSchema = z.object({
   DB_NAME: z.string(),
   DB_USERNAME: z.string(),
   DB_PASSWORD: z.string(),
+  DB_SSL: z.boolean().default(false),
 });
 
 type EnvConfig = z.infer<typeof envSchema>;
@@ -29,6 +30,7 @@ function validateEnv(): EnvConfig {
       DB_NAME: process.env.DB_NAME,
       DB_USERNAME: process.env.DB_USERNAME,
       DB_PASSWORD: process.env.DB_PASSWORD,
+      DB_SSL: process.env.DB_SSL === 'true',
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
