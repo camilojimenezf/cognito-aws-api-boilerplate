@@ -6,6 +6,8 @@ Also you need a profile in your AWS credentials file to deploy the frontend with
 
 ## 1. Create `.deploy.<environment>.env` file from `.deploy.template.env` and set the variables
 
+_App Environment variables are configured in ECS Task Definition not here, here we only use env variables for deployment_
+
 ```bash
 cp .deploy.template.env .deploy.staging.env
 ```

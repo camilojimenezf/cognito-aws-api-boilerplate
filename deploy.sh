@@ -26,7 +26,6 @@ aws ecr get-login-password --region $AWS_REGION --profile $AWS_PROFILE | docker 
 
 # Build & push Docker image
 echo "🐳 Building and pushing Docker image..."
-cp .env.${ENVIRONMENT} .env
 docker build --platform linux/amd64 -t $ECR_REPO .
 docker tag $ECR_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:latest
