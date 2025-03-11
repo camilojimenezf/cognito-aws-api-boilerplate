@@ -1,8 +1,9 @@
 # Deployment
 
-For deployment we use CloudFront and S3.
-You can find the CloudFront distribution ID and S3 bucket in the AWS console.
-Also you need a profile in your AWS credentials file to deploy the frontend with the right permissions.
+For deployment we use ECS service and ECR repository.
+
+In infrastructure repository we have a script that creates all the necessary resources (ECS cluster, task definition, service, repository, etc.) and
+this repository (created with terraform) give us the variables that we need to set to deploy the app.
 
 ## 1. Create `.deploy.<environment>.env` file from `.deploy.template.env` and set the variables
 
