@@ -29,8 +29,6 @@ export class UserRoleGuard implements CanActivate {
       context.getHandler(),
     );
 
-    if (!validRoles || validRoles.length === 0) return true;
-
     const req = context.switchToHttp().getRequest<CognitoRequest>();
     const userEmail = req.cognito_jwt_payload.email;
 
@@ -44,6 +42,8 @@ export class UserRoleGuard implements CanActivate {
     req.user = user;
 
     const roles = user.roles.map((role) => role.name);
+
+    if (!validRoles || validRoles.length === 0) return true; // If no roles are required, allow access
 
     if (!roles || roles.length === 0) {
       throw new ForbiddenException(

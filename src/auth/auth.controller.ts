@@ -11,8 +11,20 @@ import { User as UserEntity } from '../user/entities/user.entity';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('profile')
+  @Get('profile-admin')
   @Auth(RolesEnum.admin, RolesEnum.superUser)
+  getProfileAdmin(@CurrentUser() currentUser: UserEntity) {
+    return { ...currentUser };
+  }
+
+  @Get('profile-user')
+  @Auth(RolesEnum.user)
+  getProfileUser(@CurrentUser() currentUser: UserEntity) {
+    return { ...currentUser };
+  }
+
+  @Get('profile')
+  @Auth()
   getProfile(@CurrentUser() currentUser: UserEntity) {
     return { ...currentUser };
   }
